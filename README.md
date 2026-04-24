@@ -1,203 +1,43 @@
-# 📚 Chat with Your Documents (RAG based  AI Assistant)
+📚 YZTA P2P AI Assistant Chatbot
+Bu proje, yüklediğiniz dokümanları (PDF, TXT, DOCX) saniyeler içinde analiz eden ve bu belgelerdeki bilgilere dayanarak sorularınızı cevaplayan bir yapay zeka asistanıdır.
 
-## 🚀 Proje Hakkında
+✨ Temel Özellikler
+Doküman Sorgulama: Kendi dosyalarınızı yükleyin ve içeriği hakkında soru sorun.
 
-Bu proje, kullanıcıların yüklediği dokümanlar (PDF, TXT, DOCX) üzerinden yapay zeka ile etkileşim kurmasını sağlayan bir **Retrieval-Augmented Generation (RAG)** uygulamasıdır.
+Akıllı Cevaplar: Yapay zeka, sadece dosyanızdaki bilgileri kullanarak doğru yanıtlar üretir.
 
-Sistem, yüklenen dokümanları analiz eder, anlamlı parçalara ayırır ve bu içerikler üzerinden kullanıcı sorularına **kaynak temelli (source-grounded)** cevaplar üretir.
+Hızlı ve Modern: FastAPI ve Streamlit ile geliştirilmiş kullanıcı dostu arayüz.
 
----
+Geniş Format Desteği: PDF, Word (DOCX) ve Metin (TXT) dosyalarıyla tam uyum.
 
-## 🎯 Amaç
+🛠 Kullanılan Teknolojiler
+Backend: FastAPI & LangChain
 
-Bu projenin amacı:
+Yapay Zeka: OpenAI GPT & Embeddings
 
-* Büyük dil modelleri (LLM) ile gerçek bir uygulama geliştirmek
-* RAG (Retrieval-Augmented Generation) mimarisini uygulamak
-* Doküman işleme, embedding ve bilgi erişim süreçlerini deneyimlemek
-* Kullanıcıya güvenilir ve kaynak gösteren cevaplar sunmak
+Vektör Veritabanı: FAISS
 
----
+Arayüz: Streamlit
 
-## 🧠 Nasıl Çalışır?
+📁 Proje Klasör Yapısı
+Plaintext
 
-Uygulama aşağıdaki adımları izler:
+├── client/          # Kullanıcı arayüzü (Streamlit)
+├── server/          # Yapay zeka ve API merkezi (FastAPI)
+└── requirements.txt # Gerekli kütüphaneler
+🚀 Hızlı Başlangıç
+Gereksinimleri Yükleyin:
 
-1. 📂 Kullanıcı doküman yükler (PDF, TXT, DOCX)
-2. 🧹 Metin çıkarılır ve temizlenir
-3. ✂️ Metin küçük parçalara (chunks) bölünür
-4. 🔢 Her parça embedding vektörüne dönüştürülür
-5. 🗄️ Vektör veritabanına kaydedilir (FAISS)
-6. ❓ Kullanıcı soru sorar
-7. 🔍 En ilgili doküman parçaları bulunur
-8. 🤖 LLM yalnızca bu bağlama göre cevap üretir
-9. 📄 Cevap ile birlikte kaynaklar döndürülür
+Bash
 
----
-
-## 🏗️ Kullanılan Teknolojiler
-
-### Backend
-
-* FastAPI
-* LangChain
-* FAISS (Vector Database)
-* OpenAI API (LLM + Embeddings)
-
-### Frontend
-
-* Streamlit
-
-### Doküman İşleme
-
-* PyPDF (PDF parsing)
-* python-docx (DOCX parsing)
-
----
-
-## 📁 Proje Yapısı
-
-```bash
-client/
-├── app.py
-├── components/
-│   ├── chatUI.py
-│   ├── uploader.py
-│   └── history_download.py
-└── utils/
-    └── api.py
-
-server/
-├── app.py
-├── routes/
-│   ├── upload.py
-│   └── ask.py
-├── services/
-│   ├── parser.py
-│   ├── chunker.py
-│   ├── vectorstore.py
-│   └── rag.py
-```
-
----
-
-## ⚙️ Kurulum
-
-### 1. Repo'yu klonla
-
-```bash
-git clone https://github.com/your-repo-name.git
-cd your-repo-name
-```
-
----
-
-### 2. Backend kurulumu
-
-```bash
-cd server
 pip install -r requirements.txt
-```
+API Anahtarını Tanımlayın:
+.env dosyası oluşturup OPENAI_API_KEY bilginizi ekleyin.
 
-`.env` dosyası oluştur:
+Sistemi Çalıştırın:
 
-```env
-OPENAI_API_KEY=your_api_key_here
-```
+Backend: uvicorn server.app:app --reload
 
-Backend’i başlat:
+Frontend: streamlit run client/app.py
 
-```bash
-uvicorn app:app --reload
-```
 
----
-
-### 3. Frontend kurulumu
-
-```bash
-cd client
-pip install -r requirements.txt
-streamlit run app.py
-```
-
----
-
-## 💡 Kullanım
-
-1. Sidebar’dan dokümanları yükle
-2. "Upload to DB" butonuna bas
-3. Chat kısmından soru sor
-4. AI cevabı ve kullanılan kaynakları incele
-5. İstersen chat geçmişini indir
-
----
-
-## 🧪 Örnek Kullanım
-
-**Yüklenen dosya:** `project_report.pdf`
-
-**Soru:**
-
-```text
-Bu projenin amacı nedir?
-```
-
-**Cevap:**
-
-```text
-Bu projenin amacı kullanıcıların kendi dokümanları üzerinden yapay zeka ile etkileşim kurabilmesini sağlamaktır.
-```
-
-**Kaynak:**
-
-```text
-project_report.pdf
-```
-
----
-
-## 📊 Özellikler
-
-* ✅ PDF, TXT, DOCX desteği
-* ✅ Çoklu doküman yükleme
-* ✅ RAG tabanlı cevap üretimi
-* ✅ Kaynak gösterimi (source citation)
-* ✅ Chat geçmişi indirme
-* ✅ Basit ve kullanıcı dostu arayüz
-
----
-
-## ⚠️ Sınırlamalar
-
-* Çok büyük dosyalarda performans düşebilir
-* Embedding kalitesi kullanılan modele bağlıdır
-* Chunking stratejisi daha geliştirilebilir
-
----
-
-## 🔮 Geliştirme Fikirleri
-
-* Semantic chunking
-* Reranking (daha iyi retrieval)
-* Çoklu dil desteği
-* Daha gelişmiş prompt engineering
-* Kalıcı vector database (Chroma / Qdrant)
-
----
-
-## 👥 Ekip
-
-Bu proje P2P programı kapsamında ekip çalışması olarak geliştirilmiştir.
-
----
-
-## 🎥 Demo
-
-👉 (Demo video linki buraya eklenecek)
-
----
-
-## 📌 Not
-
-Bu proje bir yarışmadan ziyade öğrenme odaklı bir süreçte geliştirilmiştir. Amaç sadece çalışan bir sistem üretmek değil, aynı zamanda modern AI sistemlerinin nasıl kurulduğunu deneyimlemektir.

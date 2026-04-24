@@ -22,7 +22,6 @@ def render_chat():
         if response.status_code==200:
             data=response.json()
             answer=data["response"]
-            sources=data.get("sources",[])
             st.chat_message("assistant").markdown(answer)
             st.session_state.messages.append({"role":"assistant","content":answer})
         else:

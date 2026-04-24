@@ -1,96 +1,192 @@
-📚 YZTA P2P AI Assistant Chatbot
-RAG Based Intelligence System
-🚀 Proje Hakkında
-YZTA P2P AI Assistant, kullanıcıların yüklediği dokümanlar (PDF, TXT, DOCX) üzerinden yapay zeka ile etkileşim kurmasını sağlayan, yüksek performanslı bir Retrieval-Augmented Generation (RAG) uygulamasıdır. Bu sistem, genel amaçlı yapay zeka modellerini senin özel verilerinle besleyerek, dokümanlarındaki bilgileri anlayan ve buna göre aksiyon alan bir asistan sunar.
+# 🤖 P2P AI Assistant Chatbot
 
-🎯 Amaç
-FastAPI ve LangChain entegrasyonu ile modern bir AI backend mimarisi inşa etmek.
+> **Retrieval-Augmented Generation (RAG) Tabanlı Akıllı Asistan**
 
-Vektör veritabanı kullanarak semantik arama  süreçlerini optimize etmek.
+Kullanıcıların kendi dokümanlarını (PDF, TXT, DOCX) yükleyerek yapay zeka ile doğrudan etkileşim kurabileceği, modern ve hızlı bir RAG uygulaması.
 
-Kullanıcının kendi yerel verisiyle konuşabileceği, verimli ve hızlı bir chatbot deneyimi sağlamak.
+---
 
-🧠 Nasıl Çalışır?
-Sistem, görsellerde belirtilen teknolojik akışı temel alır:
+## 🎯 Proje Hakkında
 
-Doküman Yükleme: Kullanıcı PDF, TXT veya DOCX formatındaki belgelerini sisteme aktarır.
+**P2P AI Assistant**, FastAPI backend ve Streamlit frontend entegrasyonu ile inşa edilmiş, LangChain ve vektör veritabanlarını kullanarak semantik arama ve belge analizi yapan bir chatbot sistemidir.
 
-İşleme ve Parçalama: Metinler temizlenir ve anlamlı "chunk"lara bölünür.
+Sistem, kullanıcıların özel verilerine dayalı yanıtlar üretmesine olanak tanır. Genel amaçlı LLM modellerini özel dokümanlarınızla birleştirerek, belgesine özgü akıllı soru-cevap deneyimi sağlar.
 
-Vektörleştirme: Her metin parçası OpenAI embedding modelleri ile sayısal vektörlere dönüştürülür.
+---
 
-Sorgulama: Kullanıcı soru sorduğunda, sadece sorusuyla en alakalı bilgi parçaları FAISS üzerinden çağrılır.
+## 🧠 Nasıl Çalışır?
 
-Üretim: LLM (GPT), kendisine sunulan bu özel bağlamı kullanarak en doğru cevabı üretir.
+```
+┌─────────────┐
+│   Kullanıcı │
+│  Dokümanları│
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│  Doküman İşleme & Chunking  │ (Text parçalama)
+└──────────┬──────────────────┘
+           │
+           ▼
+┌─────────────────────────────┐
+│  Embedding & Vektörleme     │ (OpenAI Embeddings)
+└──────────┬──────────────────┘
+           │
+           ▼
+┌─────────────────────────────┐
+│  Vektör Veritabanı          │ (FAISS)
+└──────────┬──────────────────┘
+           │
+    ┌──────┴──────┐
+    │             │
+    ▼             ▼
+┌────────┐   ┌───────────┐
+│ Soru   │   │ Benzer    │
+│Sorgula │──▶│ Dokümlar  │
+└────────┘   │Getir      │
+             └─────┬─────┘
+                   │
+                   ▼
+            ┌─────────────────┐
+            │ LLM ile Cevap   │
+            │ Üretme (GPT)    │
+            └─────────────────┘
+```
 
-🏗️ Kullanılan Teknolojiler
-Backend
-FastAPI: Asenkron, hızlı ve güvenilir API yönetimi.
+**Adım Adım Akış:**
 
-LangChain: LLM ve RAG süreçlerinin orkestrasyonu.
+1. **Doküman Yükleme** → PDF, TXT, DOCX dosyalarını sisteme yükle
+2. **İşleme & Parçalama** → Metni anlamlı chunk'lara böl
+3. **Vektörleştirme** → Her chunk'ı sayısal vektöre dönüştür
+4. **Sorgulama** → Kullanıcı sorusuyla en alakalı chunks'ları bul
+5. **Cevap Üretimi** → LLM, bağlam + soru ile yanıt oluştur
 
-FAISS (Vector Database): Yüksek hızlı vektör arama ve depolama.
+---
 
-OpenAI API: Gelişmiş dil modelleri ve embedding işlemleri.
+## 🏗️ Teknoloji Stack
 
-Frontend
-Streamlit: Veri odaklı ve kullanıcı dostu arayüz tasarımı.
+### Backend
+- **FastAPI** - Asenkron, yüksek performanslı API framework
+- **LangChain** - LLM orchestration ve RAG pipeline
+- **Pinecone** - Ölçeklenebilir vektör veritabanı
+- **Groq** - Hızlı LLM inference
+- **Google GenAI** - Embedding ve LLM modelleri
 
-Doküman İşleme
-PyPDF / python-docx: Farklı formatlardaki metinleri ayıklama motorları.
+### Frontend
+- **Streamlit** - Hızlı veri uygulaması geliştirme
+- **Python** - UI bileşenleri ve API iletişimi
 
-📁 Proje Yapısı
-Plaintext
+### Doküman İşleme
+- **PyPDF** - PDF parsing
+- **python-docx** - DOCX format desteği
 
-client/
-├── app.py             # Streamlit ana giriş noktası
-├── components/
-│   ├── chatUI.py      # Mesajlaşma arayüzü bileşeni
-│   └── uploader.py    # Sürükle-bırak dosya yükleme bileşeni
-└── utils/
-    └── api.py         # Backend haberleşme katmanı
+---
 
-server/
-├── app.py             # FastAPI ana sunucu
-├── routes/
-│   ├── upload.py      # Dosya işleme ve vektörleme kanalı
-│   └── ask.py         # Soru-Cevap (RAG) kanalı
-└── services/
-    ├── parser.py      # Dosya formatı ayrıştırıcı
-    ├── vectorstore.py # Vektör veritabanı yönetimi
-    └── rag_engine.py  # LLM ve Bağlam birleştirici
-⚙️ Kurulum
-Depoyu Klonlayın:
+## 📁 Proje Yapısı
 
-Bash
+```
+P2P-Rag-test/
+├── client/
+│   ├── app.py                    # Streamlit ana uygulaması
+│   ├── components/
+│   │   ├── chatUI.py             # Chat mesajlaşma bileşeni
+│   │   ├── upload.py             # Dosya yükleme bileşeni
+│   │   └── history_download.py   # Chat geçmişi indirme
+│   └── utils/
+│       └── api.py                # Backend API haberleşmesi
+│
+├── server/
+│   ├── main.py                   # FastAPI uygulaması
+│   ├── logger.py                 # Logging konfigürasyonu
+│   ├── config.py                 # Sunucu ayarları
+│   ├── middlewares/
+│   │   └── expection_handlers.py # Exception handling
+│   ├── routes/
+│   │   ├── upload_files.py       # Dosya yükleme endpoint'i
+│   │   └── ask_question.py       # Soru-cevap endpoint'i
+│   ├── modules/
+│   │   ├── llm.py                # LLM model ayarları
+│   │   ├── load_vectorstore.py   # Vektör DB yönetimi
+│   │   ├── pdf_handlers.py       # PDF işleme
+│   │   └── query_handlers.py     # RAG query işleme
+│   ├── requirements.txt
+│   └── uploaded_docs/            # Yüklenen dokümanlar
+│
+└── README.md                     # Bu dosya
+```
 
-git clone https://github.com/kullanici-adiniz/yzta-p2p-ai-chatbot.git
-cd yzta-p2p-ai-chatbot
-Backend Kurulumu:
+---
 
-Bash
+## ⚙️ Kurulum & Çalıştırma
 
+### 1️⃣ Depoyu Klonla
+
+```bash
+git clone https://github.com/kadrzeybek/YZTA_p2p_AI-assistant_chatbot.git
+cd YZTA_p2p_AI-assistant_chatbot
+```
+
+### 2️⃣ Ortam Değişkenlerini Ayarla
+
+`.env` dosyası oluştur:
+
+```env
+# OpenAI API
+OPENAI_API_KEY=your_key_here
+
+# Google Generative AI
+GOOGLE_API_KEY=your_key_here
+
+# Groq API
+GROQ_API_KEY=your_key_here
+
+# Pinecone
+PINECONE_API_KEY=your_key_here
+PINECONE_ENVIRONMENT=your_env_here
+
+### 3️⃣ Backend Kurulumu
+
+```bash
 cd server
+python -m venv venv
+source venv/bin/activate  # Mac/Linux
+# veya
+venv\Scripts\activate  # Windows
+
 pip install -r requirements.txt
-Frontend Kurulumu:
+```
 
-Bash
+**Sunucuyu Başlat:**
+```bash
+uvicorn main:app --reload --port 8000
+```
 
+API şu adreste çalışacak: `http://localhost:8000`
+
+### 4️⃣ Frontend Kurulumu
+
+**Yeni terminal açarak:**
+
+```bash
 cd client
-pip install -r requirements.txt
+pip install streamlit requests python-dotenv
+
 streamlit run app.py
-📊 Temel Özellikler
-✅ Hızlı Veri İşleme: Çok sayfalı dokümanlarda bile saniyeler içinde sonuç.
+```
 
-✅ Minimalist Tasarım: Odak noktası sadece chat ve veri olan modern arayüz.
+Uygulama açılacak: `http://localhost:8501`
 
-✅ Format Çeşitliliği: PDF'den DOCX'e kadar geniş dosya desteği.
+---
 
-✅ Akıllı Sorgulama: Sadece kelime eşleşmesi değil, sorunun anlamını anlayan retrieval yapısı.
+## 🚀 Kullanım
 
-🔮 Geliştirme Yol Haritası
-Kalıcı veritabanı sistemlerine (Pinecone, ChromaDB) geçiş.
+### Adım 1: Doküman Yükle
+- Sol sidebar'dan `.pdf`, `.docx`, `.txt` vb. dosyaları seç
+- "Upload DB" butonuna tıkla
+- İşlem tamamlanmasını bekle
 
-Gelişmiş prompt mühendisliği ile daha spesifik cevaplar.
+### Adım 2: Soru Sor
+- Chat input alanına sorunuzu yazın
+- Asistan ilgili dokümanlardan bilgi çekerek cevap verecek
 
-Birden fazla doküman arasında çapraz sorgu yapabilme yeteneği.
+---

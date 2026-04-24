@@ -1,13 +1,11 @@
 import streamlit as st
 from utils.api import upload_files_api
 
-
 def render_uploader():
-    st.sidebar.header("Upload documents (.TXT, .PDF, .DOC, .DOCX)")
 
     uploaded_files = st.sidebar.file_uploader(
         "Upload multiple files",
-        type=["txt", "pdf", "doc", "docx", "png"],
+        type=["txt", "pdf", "doc", "docx"],
         accept_multiple_files=True
     )
 

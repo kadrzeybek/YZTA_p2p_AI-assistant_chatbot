@@ -26,4 +26,3 @@ loguru
 aiofiles
 
 streamlit
-

@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from middlewares.expection_handlers import catch_exception_middleware
-from routes.upload_pdfs import router as upload_router
+from routes.upload_files import router as upload_router
 from routes.ask_question import router as ask_router
-
 
 
 app=FastAPI(title="P2P Chatbot API",description="API for P2P Chatbot")

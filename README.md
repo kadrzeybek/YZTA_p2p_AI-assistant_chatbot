@@ -2,7 +2,7 @@
 
 > **Retrieval-Augmented Generation (RAG) Tabanlı Akıllı Asistan**
 
-Kullanıcıların kendi dokümanlarını (PDF, TXT, DOCX) yükleyerek yapay zeka ile doğrudan etkileşim kurabileceği, modern ve hızlı bir RAG uygulaması.
+Kullanıcıların kendi dokümanlarını (PDF, TXT, DOCX) yükleyerek yapay zeka ile doğrudan etkileşim kurabileceği bir RAG uygulaması.
 
 ---
 
@@ -29,12 +29,12 @@ Sistem, kullanıcıların özel verilerine dayalı yanıtlar üretmesine olanak 
            │
            ▼
 ┌─────────────────────────────┐
-│  Embedding & Vektörleme     │ (OpenAI Embeddings)
+│  Embedding & Vektörleme     │ (Google GenAI Embeddings)
 └──────────┬──────────────────┘
            │
            ▼
 ┌─────────────────────────────┐
-│  Vektör Veritabanı          │ (FAISS)
+│  Vektör Veritabanı          │ (Pinecone)
 └──────────┬──────────────────┘
            │
     ┌──────┴──────┐
@@ -49,7 +49,7 @@ Sistem, kullanıcıların özel verilerine dayalı yanıtlar üretmesine olanak 
                    ▼
             ┌─────────────────┐
             │ LLM ile Cevap   │
-            │ Üretme (GPT)    │
+            │ Üretme(Llma 3.3)│
             └─────────────────┘
 ```
 
@@ -131,8 +131,6 @@ cd YZTA_p2p_AI-assistant_chatbot
 `.env` dosyası oluştur:
 
 ```env
-# OpenAI API
-OPENAI_API_KEY=your_key_here
 
 # Google Generative AI
 GOOGLE_API_KEY=your_key_here
@@ -142,7 +140,8 @@ GROQ_API_KEY=your_key_here
 
 # Pinecone
 PINECONE_API_KEY=your_key_here
-PINECONE_ENVIRONMENT=your_env_here
+PINECONE_ENV=your_env_here
+PINECONE_INDEX_NAME=chatbotindex
 
 ### 3️⃣ Backend Kurulumu
 

@@ -168,7 +168,6 @@ API şu adreste çalışacak: `http://localhost:8000`
 
 ```bash
 cd client
-pip install streamlit requests python-dotenv
 
 streamlit run app.py
 ```
